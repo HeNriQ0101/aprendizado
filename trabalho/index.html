@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho</title>
+    <style>
+        img {
+            width: 400px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .container {
+            padding: 20px;
+            width: 500px;
+            margin: auto;
+        }
+
+        header {
+            width: 500px;
+            margin: 0 auto;
+            display: block;
+            background-color: rgb(99, 96, 96);
+        }
+
+        input {
+            width: 250px;
+
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        body {
+            background: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="tntsportslogo.svg.png">
+        </header><br>
+
+        <button onclick="theme()"> Tema </button>
+
+        <h1>Neymar está na pré-lista da Copa do mundo de 2026</h1>
+        <h3> Todos estão ansiosos para saber se Neymar será convocado para a copa de 2026</h3><br>
+
+        <p>A contagem regressiva para a Copa do Mundo de 2026 entrou na reta final. Na última segunda-feira (11), o
+            técnico Carlo Ancelotti enviou à FIFA a pré-lista de 55 nome que servem como base para a convocação
+            definitiva, marcada para a próxima segunda, dia 18 de maio.<br>
+            De acordo com o ge, a lista conta com nomes de peso que, por diferentes motivos, ainda não atuaram sob o
+            comando do técnico italiano, mas seguem no radar para o Mundial. Embora o documento oficial seja mantido em
+            sigilo pela CBF, a apuração detalha as figuras que compõem essa relação.<br>
+        </p>
+        <hr>
+        <img src="neymarcopa.png" alt="Neymar comemorando convocação">
+        <hr>
+        <p>Os nomes que mais chamam a atenção entre os "não testados" por Ancelotti são os veteranos: Neymar (Santos) e
+            Thiago Silva (Porto). O camisa 10 não atua pela Seleção Brasileira desde a grave lesão em 2023 e, embora
+            Ancelotti tenha assumido o cargo em maio de 2025, ainda não teve a oportunidade de convocar o craque. Já o
+            zagueiro Thiago Silva surge como uma possível solução de liderança para o grupo, voltando ao radar após um
+            longo período de ausência.<br>
+        </p>
+        <hr>
+
+        <h2>Caso queira receber mais noiticas deixe seu email abaixo:</h2>
+        <input type="text" id="email" placeholder="Digite seu email:">
+        <button onclick="enviar()">Enviar</button>
+
+    </div>
+
+    <script>
+        function theme() {
+
+            if (document.body.style.background === "black") {
+
+                document.body.style.background = "white";
+                document.body.style.color = "black";
+
+            } else {
+
+                document.body.style.background = "black";
+                document.body.style.color = "white";
+            }
+        }
+        
+        function enviar(){
+            let email = document.getElementById('email').value;
+
+            if (email === ""){
+                alert ("Por Favor digite o email");
+            } else {
+                alert ("Obrigado! Você receberá mais noticias no seguinte email: " + email);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
