@@ -10,21 +10,43 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 90vh;
         }
 
         .container {
-            background: grey;
-            width: 300px;
-            height: 50px;
+            background: green;
+            width: 150px;
+            height: 70px;
+            border-radius: 50px;
+            box-shadow: grey;
+        }
+        button{
+            width:70px;
+            height: 70px;
+            border-radius:60px;
+            
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <button onclick="onoff">on</button>
+        <button onclick="onoff()">ON</button>
     </div>
+    
+    <script>
+        function onoff(){
+            let container = document.querySelector(".container");
+            
+            if (container.style.background === "red"){
+            container.style.background = "green";
+            } 
+            else{
+                container.style.background = "red";
+            }
+            
+        }
+    </script>
 </body>
 
 </html>
