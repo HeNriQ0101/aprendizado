@@ -18,12 +18,16 @@
             width: 150px;
             height: 70px;
             border-radius: 50px;
-            box-shadow: grey;
+            box-shadow: black;
+            position: relative;
         }
         button{
             width:70px;
             height: 70px;
             border-radius:60px;
+            transition: 0.5s;
+            position: absolute;
+            left: 0px;
             
         }
     </style>
@@ -38,13 +42,18 @@
         function onoff(){
             let container = document.querySelector(".container");
             
-            if (container.style.background === "red"){
+            let btn = document.querySelector("button");
+            
+            if (container.style.background === "red" && btn.style.left === "80px"){
             container.style.background = "green";
+            btn.style.left = "0px";
+            btn.innerText = "ON" ;
             } 
             else{
                 container.style.background = "red";
+                btn.style.left = "80px";
+                btn.innerText = "OFF";
             }
-            
         }
     </script>
 </body>
