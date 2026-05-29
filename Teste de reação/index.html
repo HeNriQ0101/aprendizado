@@ -52,6 +52,7 @@
             height: 50px;
             padding: 5px;
             margin: 5px;
+            transition: 0.5s;
         }
 
         h1 {
@@ -60,7 +61,7 @@
             top: 280px;
             left: 43%
         }
-        
+
         h3 {
             position: absolute;
             color: white;
@@ -75,6 +76,16 @@
             width: 200px;
             height: 50px;
         }
+
+        p {
+            position: absolute;
+            top: 500px;
+            background-color: white;
+            width: 100px;
+            text-align: center;
+            font-size: 21px;
+
+        }
     </style>
 </head>
 
@@ -88,9 +99,25 @@
             <li id="luz2">2</li>
             <li id="luz3">3</li>
         </div>
-
+        <p>0s:0ms</p>
         <button onclick="start()">START</button>
     </main>
 </body>
+
+<script>
+    let time = document.getElementByTagName("p");
+    let light = document.querySelector(".luz", ".luz1", ".luz2", ".luz3");
+
+    function start() {
+
+        if (time !== "1" && light.style.backgroundColor !== "green";) {
+            light.style.backgroundColor = "green";
+            light.style.color = "green";
+        } 
+        else {
+            alert("valeu");
+        }
+    }
+</script>
 
 </html>
