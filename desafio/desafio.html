@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>UNILAGO - Desafio de Debugging Avançado</title>
+    <style>
+        *{
+            color: black;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; color: #fff; padding: 40px; }
+        .container { background: #fdfdfd; color: #333; padding: 40px; border-radius: 8px; max-width: 800px; margin: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header-logos { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .logo-unilago { max-width: 180px; }
+        .challenge-box { background: #f9f9f9; border-left: 5px solid #0055ff; margin-bottom: 25px; padding: 15px; text-align: left; }
+        h1 { color: #000; margin-top: 0; }
+        
+        /* BUGS DE CSS */
+        .invisible-force { color: transparent; user-select: none; } /* Bug 1 */
+        .important-bug { color: red !important; } /* Bug 3: Especificidade */
+        .btn-hidden { display: flex; } /* Bug 5 */
+        .ghost-zone { position: relative; }
+        .overlay { position: absolute; top:0; left:0; width: 100%; height: 100%; z-index: 10; background: rgba(255,0,0,0.0); } /* Bug 6 */
+        .no-pointer { pointer-events: none; }
+        #txt02{
+            color: green;
+        }/* Bug 12 */
+        #caixa-preta{
+            backgroundColor:;
+            color:;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container"></div>
+        <div class="header-logos">
+            <img src="logo_grande.png" alt="UNILAGO" class="logo-unilago">
+            <span>Prof. Guilherme Alves dos Santos</span>
+        </div>
+
+        <h1>LABIRINTO DE BUGS: LEVEL HARD</h1>
+        <p>Apenas 1% dos alunos da UNILAGO conseguem resolver os 15 erros sem ajuda. <strong>Valendo!</strong></p>
+
+        <!-- SEÇÃO CSS -->
+        <div class="challenge-box">
+            <p><strong>01.</strong> Há uma senha secreta aqui, mas ela é transparente:</p>
+            <p>SENHA: DOM_MASTER_2026</p>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>02.</strong> Mude a cor deste texto para verde, mas o CSS externo tem um <em>!important</em> bloqueando:</p>
+            <p id="txt02">CORRIJA MINHA COR NO INSPETOR</p>
+        </div>
+
+        <!-- SEÇÃO JAVASCRIPT -->
+        <div class="challenge-box">
+            <p><strong>03.</strong> O botão abaixo deve somar 10 + 10, mas o resultado está dando "1010". Conserte a função no console:</p>
+            <button onclick="somar()">Somar 10+10</button>
+            <p id="res-soma">Resultado: ?</p>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>04.</strong> O botão "Ativar Dark Mode" abaixo tem um erro de sintaxe no JavaScript. Descubra no Console:</p>
+            <button id="btn-dark">Ativar Dark Mode</button>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>05.</strong> Este botão está com <em>display: none</em>. Traga-o de volta e mude o texto dele para "SOU LIVRE":</p>
+            <button class="btn-hidden">SOU LIVRE</button>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>06.</strong> Uma camada invisível (overlay) está impedindo o clique no botão abaixo. Remova-a:</p>
+                <div class=""></div>
+                <button onclick="alert('Parabéns, você removeu o bloqueio!')">BOTÃO BLOQUEADO</button>
+            </div>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>07.</strong> O contador abaixo deveria aumentar, mas ele está diminuindo. Corrija a lógica:</p>
+            <button onclick="contar()">Aumentar Contador</button>
+            <span id="">0</span>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>08.</strong> Existe um erro de <em>Uncaught ReferenceError</em> neste botão. O ID no HTML bate com o do JS?</p>
+            <button id="btn-cadastro-aluno">Cadastrar Aluno</button>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>09.</strong> Mude o tipo deste input de 'password' para 'text' para ver o que está escrito:</p>
+            <input type="text" value="SOU_DEVELOPER_PRO">
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>10.</strong> Esta imagem do logo pequeno está com o caminho (src) invertido. Corrija:</p>
+            <img src="png.oneuqep_ogol" alt="Logo" width="50">
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>11.</strong> O JavaScript abaixo tenta mudar o fundo para preto, mas ele está tentando acessar a classe errada:</p>
+            <button onclick="mudarFundo()" id="caixa-preta">Mudar Fundo da Caixa</button>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>12.</strong> Este link não funciona porque o mouse "passa direto" por ele. Resolva via CSS:</p>
+            <a href="https://unilago.edu.br" class="">Site da UNILAGO</a>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>13.</strong> O título desta página no navegador está "Erro 404". Mude para "Aula do Guilherme":</p>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>14.</strong> Verifique o Console. Há uma mensagem de erro sendo disparada a cada 2 segundos. Pare esse loop:</p>
+        </div>
+
+        <div class="challenge-box">
+            <p><strong>15.</strong> O desafio final está no cabeçalho HTTP... Brincadeira! Está num atributo 'data' escondido neste parágrafo:</p>
+            <p id="final-boss"> CÓDIGO_FINAL: JAVASCRIPT_IS_ALIVE</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Bug 3: Concatenando em vez de somar
+        function somar() {
+            let n1 = 10;
+            let n2 = 10;
+            document.getElementById("res-soma").innerHTML = "Resultado: " + (n1 + n2);
+        }
+
+        // Bug 4: Erro de sintaxe (falta fechar parênteses ou aspas)
+        document.getElementById("btn-dark").addEventListener("click", function() {
+            document.body.style.backgroundColor = "#000";
+            alert("Dark Mode Ativo!");
+        }); 
+
+        // Bug 7: Lógica invertida
+        let c = 0;
+        function contar() {
+            c += 1;
+            document.getElementById("valor-cont").innerHTML = c;
+        }
+
+        // Bug 8: ID Inexistente no Script
+        document.getElementById("btn-cadastro-aluno").onclick = function() {
+            alert("Cadastrado!");
+        };
+
+        // Bug 11: Seletor errado
+        function mudarFundo() {
+            // Dica: A classe no HTML é 'container', não 'caixa-preta'
+            document.querySelector("caixa-preta").style.backgroundColor = "black";
+        }
+
+        // Bug 14: Loop de erro no console
+        
+
+        // Desafio 13: Title via JS
+        document.title = "Aula do Guilherme";
+    </script>
+</body>
+</html>

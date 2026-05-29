@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Reação</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-image: url("fundo.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 1000px;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .box {
+            background-Color: rgb(0, 0, 0);
+            width: 300px;
+            height: 100px;
+            border-color: grey;
+            border-radius: 50px;
+            display: flex;
+            flex-direction: column(4fr);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #luz,
+        #luz1,
+        #luz2,
+        #luz3 {
+            list-style: none;
+            text-align: center;
+            color: red;
+            background-color: red;
+            border-radius: 50px;
+            width: 50px;
+            height: 50px;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        h1 {
+            color: white;
+            position: absolute;
+            top: 280px;
+            left: 43%
+        }
+        
+        h3 {
+            position: absolute;
+            color: white;
+            top: 335px;
+            left: 46%;
+        }
+
+        button {
+            position: absolute;
+            top: 535px;
+            left: 45%;
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Teste de Reação:</h1>
+    <h3>Aperte "START"</h3>
+    <main>
+        <div class="box">
+            <li id="luz">0</li>
+            <li id="luz1">1</li>
+            <li id="luz2">2</li>
+            <li id="luz3">3</li>
+        </div>
+
+        <button onclick="start()">START</button>
+    </main>
+</body>
+
+</html>

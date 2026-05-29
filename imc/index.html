@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -14,28 +14,65 @@
         <div class="container">
 
             <div class="tittle">Calculadora de IMC</div>
-             <div class="input">
+            <div class="input">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" placeholder="Digite seu nome">
-             </div>
-             
-             <div class="input">
+            </div>
+
+            <div class="input">
                 <label for="altura">Altura:</label>
                 <input type="number" id="altura" placeholder="Digite sua altura">
-             </div>
+            </div>
 
-             <div class="input">
+            <div class="input">
                 <label for="peso">Peso:</label>
                 <input type="number" id="peso" placeholder="Digite seu peso">
-             </div>
-             <button id="calcular">Calcular</button>
-             <div class="result" id="result"></div>
+            </div>
+            <button id="calcular">Calcular</button>
+            <div class="result" id="result"></div>
 
         </div>
 
     </main>
 
-    <script src="./imc.js"></script>
-    
+    <script>
+        const calcular = document.getElementById('calcular');
+
+        function imc() {
+            const nome = document.getElementById('nome').value;
+            const alt = document.getElementById('altura').value;
+            const peso = document.getElementById('peso').value;
+            const result = document.getElementById('result');
+
+            if (nome !== '' && alt !== '' && peso !== '') {
+
+                const valorIMC = (peso / (alt * alt)).toFixed(1);
+
+                let classificação;
+
+                if (valorIMC < 18.5) {
+                    classificação = 'Abaixo do peso';
+                } else if (valorIMC < 25) {
+                    classificação = 'Saudável';
+                } else if (valorIMC < 30) {
+                    Classificação = 'sobrepeso';
+                } else if (valorIMC < 40) {
+                    classificação = 'Obeso';
+                } else if (valorIMC > 40) {
+                    classificação = 'Obesidade Grave';
+                }
+
+
+                result.textContent = `${nome}, seu IMC é: ${valorIMC}, você está: ${classificação}`;
+            }
+            else {
+                result.textContent = 'Preencha todos os campos';
+            }
+        }
+
+        calcular.addEventListener('click', imc);
+    </script>
+
 </body>
+
 </html>
