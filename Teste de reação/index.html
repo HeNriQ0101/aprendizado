@@ -99,25 +99,28 @@
             <li id="luz2">2</li>
             <li id="luz3">3</li>
         </div>
-        <p>0s:0ms</p>
-        <button onclick="start()">START</button>
+        <p id="ms">0ms</p>
+        <button id="start">START</button>
     </main>
 </body>
 
 <script>
-    let time = document.getElementByTagName("p");
-    let light = document.querySelector(".luz", ".luz1", ".luz2", ".luz3");
+    const time = document.getElementsById("ms");
+    const light = document.querySelectorAll(".luz, .luz1, .luz2, .luz3");
+    const start = document.getElementById("start");
 
-    function start() {
+    start.addEventListener('click', function(){
+        start.textContent = "stop";
 
-        if (time !== "1" && light.style.backgroundColor !== "green";) {
-            light.style.backgroundColor = "green";
-            light.style.color = "green";
-        } 
-        else {
-            alert("valeu");
-        }
-    }
+        let tempo = 0;
+
+        setInterval(() => {
+            tempo++,
+            time.textContent = tempo;
+        }, 1000);
+    })
+
+    
 </script>
 
 </html>
