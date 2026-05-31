@@ -22,7 +22,7 @@
         }
 
         #display {
-            background: black;
+            background-Color: black;
             color: green;
         }
     </style>
@@ -37,6 +37,8 @@
         
         <button id="resultado">=</button>
         
+        <button id="apagardisplay">C</button>
+        
         <div id="display"></div>
     </div>
     <script>
@@ -49,11 +51,22 @@
      }
      
      
+     const apagar = document.getElementById("apagardisplay");
+     apagar.onclick = () => {
+         disp.textContent = "";
+     }
+     
         const bt1 = document.querySelectorAll("button")[0];
         
         bt1.onclick = () => {
-            disp.textContent += "1";
+            Number(disp.textContent += "1");
         }
+        
+       const bt2 = document.querySelectorAll("button")[1];
+       bt2.onclick = () => {
+           Number(disp.textContent += "2");
+       }
+        
         
         const result = document.getElementById("resultado");
         result.onclick = () => {
