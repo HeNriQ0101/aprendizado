@@ -32,23 +32,43 @@
     <div class="container">
         <button id="btn1">1</button>
         <button id="btn2">2</button>
-        <button id="soma">+</button>
-        <button id="resultado"></button>
-        <div id="display">0</div>
+        
+        <button id="oprsoma">+</button>
+        
+        <button id="resultado">=</button>
+        
+        <div id="display"></div>
     </div>
     <script>
-        const result = document.getElementById('resultado');
-
-        function calcular() {
-            let t = document.getElementById('display').value;
-            const nm1 = Number(document.getElementById('btn1').textContent);
-            const nm2 = Number(document.getElementById('btn2').textContent);
-            const soma = document.getElementById('soma').textContent;
-
+     const disp = document.getElementById("display")
+     
+     const soma = document.getElementById("oprsoma");
+     
+     soma.onclick = () => {
+         disp.textContent += "+";
+     }
+     
+     
+        const bt1 = document.querySelectorAll("button")[0];
+        
+        bt1.onclick = () => {
+            disp.textContent += "1";
+        }
+        
+        const result = document.getElementById("resultado");
+        result.onclick = () => {
+            const expressao = disp.textContent;
+            
+            const partes = expressao.split("+");
+            
+            const n1 = Number(partes[0]);
+            const n2 = Number(partes[1]);
+            
+            const resultfinal = n1 + n2;
+            
+            disp.textContent = resultfinal; 
             
         }
-
-        result.addEventListener('click', calcular);
     </script>
 </body>
 
