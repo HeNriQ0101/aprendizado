@@ -112,8 +112,18 @@
         div.onclick = () => {
             disp.textContent += "/";
         }
-
-        //Botões Apagar, 
+        
+        const deci = document.getElementById("decimal");
+        deci.onclick = () => {
+            disp.textContent += ",";
+        }
+        
+        const parent = document.getElementById("parents");
+        parent.onclick = () => {
+            disp.textContent += "(";
+        }
+        
+        //Botões Apagar
         // Full display:
         const apagar = document.getElementById("apagardisplay");
         apagar.onclick = () => {
@@ -126,7 +136,6 @@
             const carac = expressao.split("");
             carac.pop();
             disp.textContent = carac.join("");
-
         }
         
         //Botões numéricos:
