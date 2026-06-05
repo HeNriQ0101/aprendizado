@@ -193,53 +193,34 @@
             disp.textContent += "0";
         }
 
+        const historico = [];
+        
+        const bthist = document.getElementById("hist");
+        bthist.onclick = () => {
+            disp.textContent = historico;
+        }
+
         //Principal, mostra o resultado!
         const result = document.getElementById("resultado");
         result.onclick = () => {
             const expressao = disp.textContent;
 
-            const partes = expressao.split(/[+\-x\/]/);
-            const operadores = expressao.match(/[+\-x\/]/g);
+            const expconvertida = expressao.replace(/x/g, "*") .replace(/,/g, ".");
 
-            const sequencia = [];
-            for (let i = 0; i < partes.length; i++){
-                sequencia.push(partes[i]);
-                if (operadores[i]){
-                    sequencia.push(operadores[i]);
+            try {
+                const resultado = Function ('"use strict"; return ('+expconvertida+')')();
+
+                historico.push(`${expressao} = ${resultado.toLocaleString("pt-BR")}`);
+
+                if (historico.length > 5) {
+                    historico.shift();
                 }
+
+                disp.textContent = resultado.toLocaleString("pt-BR");
+
+            } catch (e) {
+                disp.textContent = "Error";
             }
-
-            let resultado = parseFloat(sequencia[0]);
-            for (let i = 1; i < sequencia.length; i += 2){
-                const operador = sequencia[i];
-                const numeros = parseFloat(sequencia[i + 1]);
-
-                if (operador === "+") resultado += numeros;
-                if (operador === "-") resultado -= numeros;
-                if (operador === "x") resultado *= numeros;
-                if (operador === "/") resultado /= numeros;
-            }
-
-            let nums = partes.map(Number);
-            let ops = [...operadores];
-
-            let i = 0;
-            while (i < ops.length) {
-                if (ops[i] === "x" || ops[i] === "/"){
-
-                    const res = ops[i] === "x"
-                    ? nums[i] * nums[i + 1]
-                    : nums[i] / nums[i + 1];
-
-                    nums.splice(i, 2, res);
-                    ops.splice(i, 1);
-                }
-                else{
-                    i++;
-                }
-            }
-
-            disp.textContent = resultado.toLocaleString("pt-BR");
         }
     </script>
 </body>
