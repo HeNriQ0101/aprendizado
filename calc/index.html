@@ -120,7 +120,11 @@
         
         const parent = document.getElementById("parents");
         parent.onclick = () => {
-            disp.textContent += "(";
+            if(disp.textContent.includes("(")) {
+                disp.textContent += ")";
+            } else {
+                disp.textContent += "(";
+            }
         }
         
         //Botões Apagar
