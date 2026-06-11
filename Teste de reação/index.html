@@ -9,6 +9,7 @@
         * {
             margin: 0px;
             padding: 0px;
+            box-sizing: border-box;
             font-family: 'Courier New', Courier, monospace;
         }
 
@@ -22,105 +23,91 @@
 
         main {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 90vh;
-        }
-
-        .box {
-            background-Color: rgb(0, 0, 0);
-            width: 300px;
-            height: 100px;
-            border-color: grey;
-            border-radius: 50px;
-            display: flex;
-            flex-direction: column(4fr);
-            align-items: center;
-            justify-content: center;
-        }
-
-        #luz,
-        #luz1,
-        #luz2,
-        #luz3 {
-            list-style: none;
+            flex-direction: column;
             text-align: center;
-            color: red;
-            background-color: red;
-            border-radius: 50px;
-            width: 50px;
-            height: 50px;
-            padding: 5px;
-            margin: 5px;
-            transition: 0.5s;
+            justify-content: center;
+            align-items: center;
         }
 
         h1 {
             color: white;
-            position: absolute;
-            top: 280px;
-            left: 43%
+            font-size: 40px;
+            padding: 50px;
+            margin-top: 100px;
         }
 
-        h3 {
-            position: absolute;
-            color: white;
-            top: 335px;
-            left: 46%;
+        #semaforo {
+            display: grid;
+            grid-template-columns: repeat(4, 70px);
+            background-color: black;
+            width: 300px;
+            height: 200px;
+            border-radius: 20px;
+            align-items: center;
+            justify-content: center;
         }
 
-        button {
-            position: absolute;
-            top: 535px;
-            left: 45%;
-            width: 200px;
-            height: 50px;
+        li {
+            list-style: none;
+            background-color:#2e2e2e;
+            color: #2e2e2e;
+            width: 45px;
+            height: 45px;
+            border-radius: 50px;
+            margin: 3px;
+            justify-self: center;
+            align-self: center;
         }
 
         p {
-            position: absolute;
-            top: 500px;
-            background-color: white;
-            width: 100px;
-            text-align: center;
-            font-size: 21px;
+            margin-top: 50px;
+        }
 
+        button {
+            margin-top: 150px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Teste de Reação:</h1>
-    <h3>Aperte "START"</h3>
     <main>
-        <div class="box">
-            <li id="luz">0</li>
-            <li id="luz1">1</li>
-            <li id="luz2">2</li>
-            <li id="luz3">3</li>
+        <h1>Teste Sua Reação</h1>
+
+        <div id="semaforo">
+            <div class="container1">
+                <li id="1luz0">0</li>
+                <li id="1luz1">0</li>
+                <li id="1luz2">0</li>
+                <li id="1luz3">0</li>
+            </div>
+
+            <div class="container2">
+                <li id="2luz0">0</li>
+                <li id="2luz1">0</li>
+                <li id="2luz2">0</li>
+                <li id="2luz3">0</li>
+            </div>
+
+            <div id="container3">
+                <li class="3luz0">0</li>
+                <li class="3luz1">0</li>
+                <li class="3luz2">0</li>
+                <li class="3luz3">0</li>
+            </div>
+
+            <div id="container4">
+                <li class="4luz0">0</li>
+                <li class="4luz1">0</li>
+                <li class="4luz2">0</li>
+                <li class="4luz3">0</li>
+            </div>
+
+            <p>0000</p>
+
+            <button id="start">START</button>
+
         </div>
-        <p id="ms">0ms</p>
-        <button id="start">START</button>
     </main>
 </body>
-
-<script>
-    const time = document.getElementsById("ms");
-    const light = document.querySelectorAll(".luz, .luz1, .luz2, .luz3");
-    const start = document.getElementById("start");
-
-    start.addEventListener('click', function(){
-        start.textContent = "stop";
-
-        let tempo = 0;
-
-        setInterval(() => {
-            tempo++,
-            time.textContent = tempo;
-        }, 1000);
-    })
-
-    
-</script>
 
 </html>
