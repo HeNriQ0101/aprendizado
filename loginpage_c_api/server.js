@@ -13,7 +13,6 @@ app.post('/cadastro', (req, res) => {
     res.json({mensagem: 'Usuario cadastrado!'})
 })
 app.post('/login', (req, res) => {
-    
 })
 
 app.listen (3000)
