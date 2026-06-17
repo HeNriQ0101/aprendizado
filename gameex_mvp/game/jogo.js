@@ -17,9 +17,9 @@ const faixa = {
 }
 
 let obj = [
-    { tipo: 'cesto', faixa: 'casaesq', y: 800 },
-    { tipo: 'carro', faixa: 'rua', y: 1200 },
-    { tipo: 'buraco', faixa: 'rua', y: 1000 },
+    { tipo: 'cesto', faixa: 'casaesq', y: 800, width: 60, height: 60 },
+    { tipo: 'carro', faixa: 'rua', y: 1200, width: 60, height: 60 },
+    { tipo: 'buraco', faixa: 'rua', y: 1000, width: 60, height: 60 },
 ]
 const velocidade = 3;
 
@@ -28,8 +28,8 @@ let cameraY = 0;
 function gerarElemento(y) {
     const tipos = ['cesto', 'carro', 'buraco'];
     const tipo = tipos[Math.floor(Math.random() * tipos.length)];
-    
-    let faixaEscolhida 
+
+    let faixaEscolhida
 
     if (tipo === 'cesto') {
         const sorteio = Math.floor(Math.random() * 2);
@@ -37,18 +37,29 @@ function gerarElemento(y) {
             faixaEscolhida = 'casaesq';
         } else {
             faixaEscolhida = 'casadir';
-        } 
+        }
     }
     else {
-            faixaEscolhida = 'rua';
-        }
+        faixaEscolhida = 'rua';
+    }
 
     const largura = 60;
     const limites = faixa[faixaEscolhida];
     const x = limites.xInicio + Math.random() * (limites.xFim - limites.xInicio - largura);
 
-    obj.push({ tipo, faixaEscolhida, x, y });
+    obj.push({ tipo, faixaEscolhida, x, y, width: 60, height: 60 });
 }
+
+ function verificarColisao(player, elemento) {
+    const elementoYnatela = elemento.y - cameraY;
+        const sobrepoeX = (player.x < elemento.x + elemento.width) && (player.x + player.width > elemento.x);
+        const sobrepoeY = (player.y < elemento.y + elemento.height) && (player.y + player.height > elementoYnatela);
+        const colidiu = sobrepoeX && sobrepoeY;
+
+        return colidiu;
+    }
+
+let placar = 0;
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -61,10 +72,23 @@ function gameLoop() {
             ctx.fillStyle = 'red';
         } else if (elemento.tipo === 'buraco') {
             ctx.fillStyle = 'black';
+        };
+
+        const colidiu = verificarColisao(player, elemento);
+        if(colidiu){
+            if (elemento.tipo === 'cesto'){
+            
+        } else if (elemento.tipo === 'carro'){
+            let placarAtual = + 100
+            let disp = placarAtual + placar
+            ctx.fillStyle = 'gey'
+            ctx.font = '24px Arial black'
+            ctx.fillText('Placar:' + disp, 10, 30)
+        }
         }
 
         ctx.fillRect(elemento.x, elemento.y - cameraY, 60, 60);
-    })
+    });
 
     ctx.fillStyle = "blue";
     ctx.fillRect(player.x, player.y, player.width, player.height);
@@ -82,15 +106,15 @@ function gameLoop() {
 requestAnimationFrame(gameLoop);
 
 canvas.addEventListener('mousemove', (e) => {
-    const rect =  canvas.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     const posicaoRelativa = e.clientX - rect.left;
     player.x = posicaoRelativa;
 
-    if(player.x < 80) {
+    if (player.x < 80) {
         player.x = 80;
     }
 
-    if(player.x > 360) {
+    if (player.x > 360) {
         player.x = 360;
     }
-});
+})
