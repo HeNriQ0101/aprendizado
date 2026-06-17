@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    display: flex;
+}
+
+canvas {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+#game {
+    border: 10px solid black;
+}
