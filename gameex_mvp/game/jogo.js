@@ -11,19 +11,23 @@ const player = {
 const faixa = {
     casaesq: { xInicio: 0, xFim: 80 },
     calcesq: { xInicio: 80, xFim: 140 },
-    rua: { xInicio: 140, xFim: 340 },
+    ruaesq: { xInicio:140, xFim: 240 },
+    ruadir: { xInicio: 240, xFim: 340 },
     calcdir: { xInicio: 340, xFim: 400 },
     casadir: { xInicio: 400, xFim: 480 }
 }
 
 let obj = [
     { tipo: 'cesto', faixa: 'casaesq', y: 800, width: 60, height: 60 },
-    { tipo: 'carro', faixa: 'rua', y: 1200, width: 60, height: 60 },
-    { tipo: 'buraco', faixa: 'rua', y: 1000, width: 60, height: 60 },
+    { tipo: 'carro', faixa: 'ruaesq', y: 1200, width: 60, height: 60 },
+    { tipo: 'buraco', faixa: 'ruadir', y: 1200, width: 60, height: 60 },
 ]
-const velocidade = 3;
 
+let velocidade = 0;
+const maxVelocidade = 10;
 let cameraY = 0;
+let placar = 0;
+let pedido = [];
 
 function gerarElemento(y) {
     const tipos = ['cesto', 'carro', 'buraco'];
@@ -38,31 +42,29 @@ function gerarElemento(y) {
         } else {
             faixaEscolhida = 'casadir';
         }
-    }
-    else {
-        faixaEscolhida = 'rua';
+    } else {
+        faixaEscolhida = Math.random() < 0.5 ? 'ruaesq' : 'ruadir';
     }
 
     const largura = 60;
     const limites = faixa[faixaEscolhida];
-    const x = limites.xInicio + Math.random() * (limites.xFim - limites.xInicio - largura);
+    const x = limites.xInicio + (limites.xFim - limites.xInicio - largura) / 2;
 
     obj.push({ tipo, faixaEscolhida, x, y, width: 60, height: 60 });
 }
 
- function verificarColisao(player, elemento) {
-    const elementoYnatela = elemento.y - cameraY;
-        const sobrepoeX = (player.x < elemento.x + elemento.width) && (player.x + player.width > elemento.x);
-        const sobrepoeY = (player.y < elemento.y + elemento.height) && (player.y + player.height > elementoYnatela);
-        const colidiu = sobrepoeX && sobrepoeY;
+function verificarColisao(player, elemento) {
+    const elementoYnatela = elemento.y + cameraY;
+    const sobrepoeX = (player.x < elemento.x + elemento.width) && (player.x + player.width > elemento.x);
+    const sobrepoeY = (player.y < elementoYnatela + elemento.height) && (player.y + player.height > elementoYnatela);
+    const colidiu = sobrepoeX && sobrepoeY;
 
-        return colidiu;
-    }
-
-let placar = 0;
+    return colidiu;
+}
 
 function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     cameraY = cameraY + velocidade;
 
     obj.forEach(elemento => {
@@ -75,32 +77,61 @@ function gameLoop() {
         };
 
         const colidiu = verificarColisao(player, elemento);
-        if(colidiu){
-            if (elemento.tipo === 'cesto'){
-            
-        } else if (elemento.tipo === 'carro'){
-            let placarAtual = + 100
-            let disp = placarAtual + placar
-            ctx.fillStyle = 'gey'
-            ctx.font = '24px Arial black'
-            ctx.fillText('Placar:' + disp, 10, 30)
-        }
+        if (colidiu) {
+            if (elemento.tipo === 'cesto') {
+                placar = placar + 100;
+            } else if (elemento.tipo === 'carro') {
+                placar = 0;
+            } else if (elemento.tipo === 'buraco') {
+                placar = 0;
+            }
+            ctx.fillText('Placar:' + placar, 170, 30);
         }
 
-        ctx.fillRect(elemento.x, elemento.y - cameraY, 60, 60);
+        ctx.fillRect(elemento.x, elemento.y + cameraY, 60, 60);
     });
 
     ctx.fillStyle = "blue";
     ctx.fillRect(player.x, player.y, player.width, player.height);
 
-    requestAnimationFrame(gameLoop);
-
     const ultimoElemento = obj[obj.length - 1];
     if (ultimoElemento.y - cameraY < 1000) {
-        gerarElemento(ultimoElemento.y + 300);
+        gerarElemento(ultimoElemento.y - 300);
     }
 
-    obj = obj.filter(elemento => elemento.y - cameraY > -100);
+    obj = obj.filter(elemento => elemento.y + cameraY < canvas.height + 100);
+
+    pedido.forEach(item => {
+        if (item.direcao === 'esquerda') {
+            item.x = item.x - 5;
+        } else {
+            item.x = item.x + 5;
+        }
+
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(item.x, item.y, item.width, item.height);
+    })
+
+    pedido.forEach(item => {
+        obj.forEach(elemento => {
+            const colidiuComCesto = verificarColisao(item, elemento)
+            if (colidiuComCesto && elemento.tipo === 'cesto') {
+                placar = placar + 100;
+                item.acertou = true;
+            }
+        })
+    })
+
+    pedido = pedido.filter(item => item.acertou != true);
+
+    ctx.fillStyle = 'black';
+    ctx.font = '24px Arial';
+    ctx.fillText('Placar:' + placar, 170, 30);
+
+    velocidade = Math.min(3 + Math.floor(placar / 1000), maxVelocidade);
+    console.log(velocidade);
+
+    requestAnimationFrame(gameLoop);
 }
 
 requestAnimationFrame(gameLoop);
@@ -110,11 +141,29 @@ canvas.addEventListener('mousemove', (e) => {
     const posicaoRelativa = e.clientX - rect.left;
     player.x = posicaoRelativa;
 
-    if (player.x < 80) {
-        player.x = 80;
+    if (player.x < 140) {
+        player.x = 140;
     }
 
-    if (player.x > 360) {
-        player.x = 360;
+    if (player.x > 300) {
+        player.x = 300;
     }
+})
+
+canvas.addEventListener('click', (e) => {
+    let direction
+
+    if (player.x < canvas.width / 2) {
+        direction = 'esquerda';
+    } else {
+        direction = 'direita';
+    }
+
+    pedido.push({
+        x: player.x,
+        y: player.y,
+        width: 10,
+        height: 10,
+        direcao: direction
+    })
 })
