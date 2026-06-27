@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tab Example</title>
+  <style>
+  body {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  
+  .tab {
+    overflow:hidden;
+    border:1px solid #ccc;
+    background-color:white;
+  }
+  
+  .tabContent {
+      display:none;
+  }
+  </style>
+</head>
+<body>
+  <div class="tab">
+    <button class="tabLinks" onclick="openCity(event, 'London')">London</button>
+    <button class="tabLinks" onclick="openCity(event, 'Paris')">Paris</button>
+    <button class="tabLinks" onclick="openCity (event, 'Tokyo')">Tokyo</button>
+  </div>
+  
+  <div class="tabContent">
+    <div id="London">
+      <p>London is the capital of England</p>
+    </div>
+    <div id="Paris">
+      <p>Paris is the capital of France</p>
+    </div>
+    <div id="Tokyo">
+      <p>Tokio is the Capital of Japan</p>
+    </div>
+  </div>
+</body>
+<script>
+function openCity(evt, cityName){
+  let i, tabContent, tabLinks;
+  
+  tabContent = document.getElementByClassName('tabContent');
+  
+  for (i = 0; i < tabContent.length; i++) {
+  tabContent[i].style.display = "none";
+  }
+  
+  tabLinks = document.getElementByClassName('tabLinks');
+  
+  for (i = 0; i < tabLinks.length; i++) {
+    tabLinks[i].className = tabLinks[i].className.replace("active", "");
+  }
+}
+</script>
+</html>
